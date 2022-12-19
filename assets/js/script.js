@@ -33,6 +33,7 @@ function countdown() {
   nextQuestion();
 }
 
+// prompts question and answer choices
 function nextQuestion() {
   var currentQuestion = questions[currentQuestionIndex];
 
@@ -54,9 +55,10 @@ function nextQuestion() {
   });
 }
 
+// determines what happens whether right/wrong answer is chosen
 function questionClick() {
    if (this.value !== questions[currentQuestionIndex].answer) {
-    time -= 15;
+    time -= 10;
 
     if (time <= 0) {
       time = 0;
@@ -73,7 +75,7 @@ function questionClick() {
   }
 }
 
-
+// finalizes results
 function endQuiz() {
   clearInterval(timerId);
   
@@ -81,8 +83,12 @@ function endQuiz() {
 
   var endQuizEl = document.getElementById("end")
   endQuizEl.setAttribute("class", "display")
+
+  var finalScoreEl = document.getElementById("final-score");
+  finalScoreEl.textContent = time;
 }
 
+// submits results to scoreboard page
 function submitHS() {
   var initials = initialsEl.value;
   
@@ -92,7 +98,7 @@ function submitHS() {
 
       var currentScore = {
         score: time,
-        initials: initials
+        initials: initials.toUpperCase()
       };
     
     highscores.push(currentScore);
@@ -102,6 +108,7 @@ function submitHS() {
     
 }
 
+// in case user hits Enter button instead of clicking Submit
 function enterKey(event) {
   if (event.key === "Enter") {
     submitHS();

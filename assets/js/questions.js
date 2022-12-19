@@ -1,11 +1,11 @@
 var questions = [
     {
-      title: "Arrays in JavaScript can be used to store",
+      title: "Arrays in JavaScript can be used to store ______.",
       choices: ["numbers and strings", "other arrays", "booleans", "all of the above"],
       answer: "all of the above"
     },
     {
-      title: "The condition in an if / else statement is enclosed with _______.",
+      title: "The condition in an if / else statement is enclosed with ______.",
       choices: ["quotes", "curly brackets", "parenthesis", "square brackets"],
       answer: "parenthesis"
     },
@@ -23,10 +23,5 @@ var questions = [
         title: "String values must be enclosed within ______ when being assigned to variables.",
         choices: ["commas", "brackets", "quotes", "parenthesis"],
         answer: "quotes"
-    },
-    {
-        title: "lorem",
-        choices: ["lorem1", "lorem2", "lorem3", "lorem4"],
-        answer: "lorem1"
     },
   ];
