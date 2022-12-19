@@ -13,8 +13,12 @@ body {
     max-width: 600px;
   }
 
-.home {
+.start {
     text-align: center;
+}
+
+.hide {
+  display: none;
 }
 
 button {
@@ -33,3 +37,4 @@ button {
     top: 10px;
     right: 10px;
   }
+
