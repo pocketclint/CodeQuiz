@@ -1,16 +1,23 @@
+//DOM elements
 var beginBtn = document.querySelector("#begin");
 var submitBtn = document.querySelector("#submit");
 var questionsEl = document.querySelector("#questions");
+var choicesEl = document.querySelector("#choices");
 var timerEl = document.querySelector("#time")
 var initialsEl = document.querySelector("#initials");
 
-var time = 1;
+//Quiz elements
+var currentQuestionIndex = 0;
+var time = questions.length * 15;
 var timerId;
 
 function beginQuiz() {
+  //add functionality to Begin button by changing visible element
   var homeEl = document.getElementById("home");
   homeEl.setAttribute("class", "hide");
   questionsEl.setAttribute("class", "display");
+  
+  //starts timer
   timerId = setInterval(countdown, 1000);
   timerEl.textContent = time;
     }
@@ -22,7 +29,50 @@ function countdown() {
   if (time <= 0) {
     endQuiz();
   }
+
+  nextQuestion();
 }
+
+function nextQuestion() {
+  var currentQuestion = questions[currentQuestionIndex];
+
+  var titleEl = document.getElementById("question");
+  titleEl.textContent = currentQuestion.title;
+
+  choicesEl.innerHTML = "";
+
+  currentQuestion.choices.forEach(function(choice, i) {
+    var choiceBtn = document.createElement("button");
+    choiceBtn.setAttribute("class", "choice");
+    choiceBtn.setAttribute("value", choice);
+
+    choiceBtn.textContent = i + 1 + ". " + choice;
+
+    choiceBtn.onclick = questionClick;
+
+    choicesEl.appendChild(choiceBtn);
+  });
+}
+
+function questionClick() {
+   if (this.value !== questions[currentQuestionIndex].answer) {
+    time -= 15;
+
+    if (time <= 0) {
+      time = 0;
+      timerEl.textContent = time;
+    }
+  }
+
+    currentQuestionIndex++;
+
+  if (currentQuestionIndex === questions.length) {
+    endQuiz();
+  } else {
+    nextQuestion();
+  }
+}
+
 
 function endQuiz() {
   clearInterval(timerId);
@@ -45,7 +95,6 @@ function submitHS() {
         initials: initials
       };
     
-
     highscores.push(currentScore);
     window.localStorage.setItem("highscores", JSON.stringify(highscores));
     window.location.href = "highscores.html";
@@ -53,5 +102,12 @@ function submitHS() {
     
 }
 
+function enterKey(event) {
+  if (event.key === "Enter") {
+    submitHS();
+  }
+}
+
 beginBtn.onclick = beginQuiz;
 submitBtn.onclick = submitHS;
+initialsEl.onkeyup = enterKey;
