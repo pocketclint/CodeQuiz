@@ -50,4 +50,6 @@ button {
     list-style: decimal inside;
   }
 
-  
+  .choices button {
+    display: block;
+  }
